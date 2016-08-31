@@ -11,36 +11,36 @@ import tablero.TableroControlador;
 
 public class Jugador {
 
-	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof Jugador))
-			return false;
-		return ((Jugador) obj).esBlanco() == this.esBlanco();
-	}
-	private boolean esBlanco;	
-	private Rey miRey;
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Jugador))
+                return false;
+        return ((Jugador) obj).esBlanco() == this.esBlanco();
+    }
+    private boolean esBlanco;	
+    private Rey miRey;
 
-	public Jugador(boolean b) {
-		this.esBlanco = b;
-	}
+    public Jugador(boolean b) {
+        this.esBlanco = b;
+    }
 
-	public Jugador() {
-		
-	}
-	
-	public boolean esBlanco(){
-		return esBlanco;
-	}
-	
-	public String toString(){
-		return esBlanco ? "Jugador Blanco" : "Jugador Negro";
-	}
-	public void setMiRey(Rey miRey) {
-		this.miRey = miRey;
-	}
+    public Jugador() {
 
-	public Rey getMiRey() {
-		return miRey;
-	}
+    }
+
+    public boolean esBlanco(){
+        return esBlanco;
+    }
+
+    public String toString(){
+        return esBlanco ? "Jugador Blanco" : "Jugador Negro";
+    }
+    public void setMiRey(Rey miRey) {
+        this.miRey = miRey;
+    }
+
+    public Rey getMiRey() {
+        return miRey;
+    }
 
 }

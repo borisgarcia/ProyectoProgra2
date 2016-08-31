@@ -37,34 +37,8 @@ public class elefante extends Pieza {
         int yFr = pos.getY();
         int xFr = pos.getX();
 
-        if (Math.abs(xTo - xFr) == Math.abs(yTo - yFr)) {
-            int x1, y1, x2, y2, incX, incY;
-            if (xTo > xFr) {
-                x1 = xFr + 1;
-                x2 = xTo;
-                incX = 1;
-            } else {
-                x1 = xFr - 1;
-                x2 = xTo;
-                incX = -1;
-            }
-            if (yTo > yFr) {
-                y1 = yFr + 1;
-                y2 = yTo;
-                incY = 1;
-            } else {
-                y1 = yFr - 1;
-                y2 = yTo;
-                incY = -1;
-            }
-            for (; y2 != y1 && x2 != x1; x1 = x1 + incX, y1 = y1 + incY)
-                try {
-                    if (tableromodel.getCasilla(x1, y1).getPieza() != null)
-                        return false;
-                } catch (Exception e) {
-                }
+        if (Math.abs(xFr - xTo) == 2 && Math.abs(yFr - yTo) == 2)
             return true;
-        }
         return false;
     }
 }

@@ -29,20 +29,16 @@ public class Reina extends Pieza {
         Pieza pieza2 = casillaHasta.getPieza();
 
         if (pieza2 != null) {
-                if (esBlanca() == pieza2.esBlanca()) {
-                    tablero.mensaje("Pieza de tu mismo color...");
-                    return false;
-                }
+            if (esBlanca() == pieza2.esBlanca()) {
+                tablero.mensaje("Pieza de tu mismo color...");
+                return false;
+            }
         }	
-
-
 
         int yFr = pos.getY();
         int xFr = pos.getX();
 
-       if (
-                        Math.abs(xFr - xTo) == 1 && Math.abs(yFr - yTo) == 1
-                        )
+       if (Math.abs(xFr - xTo) == 1 && Math.abs(yFr - yTo) == 1)
             return true;
         return false;
     }
