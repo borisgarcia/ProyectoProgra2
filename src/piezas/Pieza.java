@@ -6,34 +6,33 @@ import tablero.Tablero;
 import tablero.TableroControlador;
 
 public abstract class Pieza {
-	protected String IMAGEN;
-	protected boolean esBlanca;
-	protected Posicion pos;
+    protected String IMAGEN;
+    protected boolean esBlanca;
+    protected Posicion pos;
 
-	public String getRutaImagen() {
-		return IMAGEN;
-	}
+    public String getRutaImagen() {
+        return IMAGEN;
+    }
 
-	public String toString() {
-		return "";
-	}
+    public String toString() {
+        return "";
+    }
 
-	public Posicion getPosicion() {
-		return this.pos;
-	}
+    public Posicion getPosicion() {
+        return this.pos;
+    }
 
-	abstract public boolean esMovimientoValido(Posicion posicion,TableroControlador tableromodel, Tablero tablero);
+    abstract public boolean esMovimientoValido(Posicion posicion,TableroControlador tableromodel, Tablero tablero);
 
-	public boolean esBlanca() {
-		return esBlanca;
-	}
+    public boolean esBlanca() {
+        return esBlanca;
+    }
 
-	public boolean isBlanca() {
-		return esBlanca;
-	}
+    public boolean isBlanca() {
+        return esBlanca;
+    }
 
-	public void setPosicion(Posicion posicionHasta) {
-		this.pos = posicionHasta;
-
-	}
+    public void setPosicion(Posicion posicionHasta) {
+        this.pos = posicionHasta;
+    }
 }
