@@ -70,5 +70,5 @@ public class Torre extends Pieza {
             return true;
         }
         return false;
-    }
+    }	
 }

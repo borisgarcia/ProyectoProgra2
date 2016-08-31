@@ -44,7 +44,9 @@ public class Peon extends Pieza {
 
         if ((xFr == xTo && (yFr + mov) == yTo) && casillaTo.getPieza() == null)
             return true;
-        
+        if (Math.abs(xFr - xTo) == 1 && (yTo - yFr) == mov && casillaTo.getPieza() != null)
+			return true;
+
         return false;
     }
 }
