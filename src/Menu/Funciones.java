@@ -75,11 +75,16 @@ public class Funciones extends javax.swing.JFrame {
         return false;
     }
     
-//    public static boolean CambiarPassword(String a, String b){
-//        if(loggedIn.getPass().equalsIgnoreCase(a)){
-//            loggedIn.setPass(b);
-//            return true;
-//        }
-//        return false;
-//    }
+    public static boolean CambiarPassword(String a, String b) throws IOException{
+        if(Verificar(loggedIn)){
+            long pos = users.getFilePointer();
+            String pass = users.readUTF();
+            if(pass.equals(a)){
+                users.seek(pos);
+                users.writeUTF(b);
+            }
+            return true;
+        }
+        return false;
+    }
 }

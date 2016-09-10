@@ -6,7 +6,14 @@
 package Menu;
 
 //import static Menu.Funciones.CambiarPassword;
+
+import static Menu.Funciones.CambiarPassword;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
+
 
 /**
  *
@@ -122,17 +129,21 @@ public class CambiarPassword extends javax.swing.JFrame {
         String contr1 = txtPassAntigua.getText();
         String contr2 = String.valueOf(txtPassNueva.getPassword());
 
-//        if(CambiarPassword(contr1,contr2)){
-//            JOptionPane.showMessageDialog(rootPane, "Contrasena Cambiada Exitosamente");
-//            MiCuenta m = new MiCuenta();
-//            m.setVisible(true);
-//            dispose();
-//        }
-//        else{
-//            JOptionPane.showMessageDialog(rootPane, "Contrasena Incorrecta");
-//            txtPassAntigua.setText("");
-//            txtPassNueva.setText("");
-//        }
+        try {
+            if(CambiarPassword(contr1,contr2)){
+                JOptionPane.showMessageDialog(rootPane, "Contrasena Cambiada Exitosamente");
+                MiCuenta m = new MiCuenta();
+                m.setVisible(true);
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Contrasena Incorrecta");
+                txtPassAntigua.setText("");
+                txtPassNueva.setText("");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(CambiarPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
 
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -19,7 +19,7 @@ public class MiCuenta extends javax.swing.JFrame {
      * Creates new form MiCuenta
      */
     public MiCuenta() {     
-//        initComponents();
+          initComponents();
 //        txtUsuario.setText(loggedIn.getUser());
 //        txtPuntos.setText(""+loggedIn.getPuntos());
 //        txtFecha.setText(""+loggedIn.getDia().getTime());
