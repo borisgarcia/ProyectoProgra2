@@ -5,6 +5,7 @@
  */
 package Menu;
 
+import static Menu.CrearCuenta.LogIn;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -119,12 +120,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         // TODO add your handling code here:
-        Tablero frame = new Tablero();
-        frame.setAlwaysOnTop(true);
-        frame.setSize( new Dimension(1000, 520) );
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationByPlatform(true);      
-        frame.setVisible(true);
+        
+           Login2 m = new Login2();
+            m.setVisible(true);
+            dispose();
+        
+        
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiCuentaActionPerformed

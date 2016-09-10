@@ -16,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class CrearCuenta extends javax.swing.JFrame {
     private static ArrayList<Player> players = new ArrayList<>();;
-    public static Player loggedIn; 
+    public static Player loggedIn, loggedIn2; 
 
     public static Player Verificar(String p){
         for(Player x: players){
@@ -48,6 +48,17 @@ public class CrearCuenta extends javax.swing.JFrame {
         for(Player x:players){
             if(u.equalsIgnoreCase(x.getUser()) && p.equalsIgnoreCase(x.getPass())){
                 loggedIn = x;
+                return true;
+            }
+                
+        }
+        return false;
+    }
+    
+    public static boolean LogIn2(String u){
+        for(Player x:players){
+            if(u.equalsIgnoreCase(x.getUser()) && !u.equalsIgnoreCase(loggedIn.getUser())){
+                loggedIn2 = x;
                 return true;
             }
                 
