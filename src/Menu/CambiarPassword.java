@@ -132,9 +132,10 @@ public class CambiarPassword extends javax.swing.JFrame {
         try {
             if(CambiarPassword(contr1,contr2)){
                 JOptionPane.showMessageDialog(rootPane, "Contrasena Cambiada Exitosamente");
+                dispose();
                 MiCuenta m = new MiCuenta();
                 m.setVisible(true);
-                dispose();
+                
             }
             else{
                 JOptionPane.showMessageDialog(rootPane, "Contrasena Incorrecta");
@@ -151,6 +152,8 @@ public class CambiarPassword extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
+        MiCuenta t = new MiCuenta();
+        t.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

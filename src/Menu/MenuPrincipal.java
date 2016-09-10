@@ -121,21 +121,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
         // TODO add your handling code here:
         
-           Login2 m = new Login2();
-            m.setVisible(true);
-            dispose();
+        Login2 m = new Login2();
+        m.setVisible(true);
+        dispose();
         
         
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiCuentaActionPerformed
         // TODO add your handling code here:
+        dispose();
         MiCuenta m = new MiCuenta();
         m.setVisible(true);
     }//GEN-LAST:event_btnMiCuentaActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
+        dispose();
         Reportes n = new Reportes();
         n.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed

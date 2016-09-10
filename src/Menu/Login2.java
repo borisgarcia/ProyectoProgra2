@@ -117,6 +117,7 @@ public class Login2 extends javax.swing.JFrame {
         String jugador = txtUsuario.getText();
         try {
             if(LogIn2(jugador)){
+                dispose();
                 Tablero frame = new Tablero();
                 frame.setAlwaysOnTop(true);
                 frame.setSize( new Dimension(1000, 520) );
@@ -138,6 +139,8 @@ public class Login2 extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
+         MenuPrincipal t = new MenuPrincipal();
+         t.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

@@ -87,4 +87,14 @@ public class Funciones extends javax.swing.JFrame {
         }
         return false;
     }
+    
+    public static boolean CerrarCuenta() throws IOException{
+        if(Verificar(loggedIn)){
+            users.readUTF();
+            users.skipBytes(12);
+            users.writeBoolean(false);
+        }
+        
+        return false;
+    }
 }

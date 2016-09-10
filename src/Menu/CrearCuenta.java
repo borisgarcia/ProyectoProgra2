@@ -136,6 +136,8 @@ public class CrearCuenta extends javax.swing.JFrame {
             if(AgregarPlayer(jugador,contr)){
                 JOptionPane.showMessageDialog(rootPane, "Cuenta Creada Exitosamente!");
                 dispose();
+                MenuInicio t = new MenuInicio();
+                t.setVisible(true);
             }
             else{
                 JOptionPane.showMessageDialog(rootPane, "Su cuenta no ha sido creada");
@@ -151,6 +153,8 @@ public class CrearCuenta extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         dispose();
+        MenuInicio t = new MenuInicio();
+        t.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
