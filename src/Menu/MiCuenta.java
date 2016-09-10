@@ -20,6 +20,11 @@ public class MiCuenta extends javax.swing.JFrame {
      */
     public MiCuenta() {     
         initComponents();
+        txtUsuario.setText(loggedIn.getUser());
+        txtPuntos.setText(""+loggedIn.getPuntos());
+        txtFecha.setText(""+loggedIn.getDia().getTime());
+        String a = loggedIn.isActivo()? "Si": "No";
+        txtActivo.setText(a);
     }
 
     /**
@@ -222,11 +227,7 @@ public class MiCuenta extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        txtUsuario.setText(loggedIn.getUser());
-        txtPuntos.setText(""+loggedIn.getPuntos());
-        txtFecha.setText(""+loggedIn.getDia().getTime());
-        String a = loggedIn.isActivo()? "Si": "No";
-        txtActivo.setText(a);
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     /**

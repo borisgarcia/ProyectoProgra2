@@ -10,7 +10,7 @@ public abstract class Pieza {
     protected boolean esBlanca;
     protected Posicion pos;
 
-    public String getRutaImagen() {
+    public final String getRutaImagen() {
         return IMAGEN;
     }
 
@@ -22,13 +22,9 @@ public abstract class Pieza {
         return this.pos;
     }
 
-    abstract public boolean esMovimientoValido(Posicion posicion,TableroControlador tableromodel, Tablero tablero);
+    public abstract boolean esMovimientoValido(Posicion posicion,TableroControlador tableromodel, Tablero tablero);
 
-    public boolean esBlanca() {
-        return esBlanca;
-    }
-
-    public boolean isBlanca() {
+    public final boolean esBlanca() {
         return esBlanca;
     }
 

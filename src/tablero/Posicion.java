@@ -1,6 +1,6 @@
 package tablero;
 
-public class Posicion {
+public final class Posicion {
     private int x;
     private int y;
 
@@ -9,11 +9,11 @@ public class Posicion {
         this.y = y;
     }
 
-    public int getX() {		
+    public final int getX() {		
         return x;
     }
 
-    public int getY() {		
+    public final int getY() {		
         return y;
     }
 }
