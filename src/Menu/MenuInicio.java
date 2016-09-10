@@ -5,17 +5,29 @@
  */
 package Menu;
 
+import static Menu.Funciones.ROOT;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+
 /**
  *
  * @author dell
  */
 public class MenuInicio extends javax.swing.JFrame {
-
+    public static RandomAccessFile users;
     /**
      * Creates new form MenuInicio
      */
     public MenuInicio() {
         initComponents();
+        try{
+            new File(ROOT).mkdir();
+            users = new RandomAccessFile(ROOT+"/players.cha","rw"); 
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
     }
 
     /**

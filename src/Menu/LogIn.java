@@ -5,7 +5,11 @@
  */
 package Menu;
 
-import static Menu.CrearCuenta.LogIn;
+
+import static Menu.Funciones.LogIn;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -128,15 +132,21 @@ public class LogIn extends javax.swing.JFrame {
         String jugador = txtUsuario.getText();
         String contr = String.valueOf(txtContrasena.getPassword());
         
-        if(LogIn(jugador,contr)){
-            MenuPrincipal m = new MenuPrincipal();
-            m.setVisible(true);
-            dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Usuario o Contrasena Incorrecta");
-            txtUsuario.setText("");
-            txtContrasena.setText("");
+        try {
+            
+            if(LogIn(jugador,contr)){
+                
+                MenuPrincipal m = new MenuPrincipal();
+                m.setVisible(true);
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Usuario o Contrasena Incorrecta");
+                txtUsuario.setText("");
+                txtContrasena.setText("");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(LogIn.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

@@ -5,8 +5,12 @@
  */
 package Menu;
 
-import static Menu.CrearCuenta.LogIn2;
+
+import static Menu.Funciones.LogIn2;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import tablero.Tablero;
@@ -111,20 +115,22 @@ public class Login2 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String jugador = txtUsuario.getText();
-        
-
-        if(LogIn2(jugador)){
-            Tablero frame = new Tablero();
-            frame.setAlwaysOnTop(true);
-            frame.setSize( new Dimension(1000, 520) );
-            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            frame.setLocationByPlatform(true);      
-            frame.setVisible(true);
-        }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Usuario no existe o debe ser diferente");
-            txtUsuario.setText("");
-            
+        try {
+            if(LogIn2(jugador)){
+                Tablero frame = new Tablero();
+                frame.setAlwaysOnTop(true);
+                frame.setSize( new Dimension(1000, 520) );
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setLocationByPlatform(true);
+                frame.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Usuario no existe o debe ser diferente");
+                txtUsuario.setText("");
+                
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Login2.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed

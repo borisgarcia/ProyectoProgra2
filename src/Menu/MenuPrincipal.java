@@ -5,7 +5,7 @@
  */
 package Menu;
 
-import static Menu.CrearCuenta.LogIn;
+
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;

@@ -5,7 +5,7 @@
  */
 package Menu;
 
-import static Menu.CrearCuenta.loggedIn;
+import static Menu.Funciones.loggedIn;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -19,12 +19,12 @@ public class MiCuenta extends javax.swing.JFrame {
      * Creates new form MiCuenta
      */
     public MiCuenta() {     
-        initComponents();
-        txtUsuario.setText(loggedIn.getUser());
-        txtPuntos.setText(""+loggedIn.getPuntos());
-        txtFecha.setText(""+loggedIn.getDia().getTime());
-        String a = loggedIn.isActivo()? "Si": "No";
-        txtActivo.setText(a);
+//        initComponents();
+//        txtUsuario.setText(loggedIn.getUser());
+//        txtPuntos.setText(""+loggedIn.getPuntos());
+//        txtFecha.setText(""+loggedIn.getDia().getTime());
+//        String a = loggedIn.isActivo()? "Si": "No";
+//        txtActivo.setText(a);
     }
 
     /**

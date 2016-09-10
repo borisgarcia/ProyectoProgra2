@@ -5,83 +5,29 @@
  */
 package Menu;
 
+import static Menu.Funciones.AgregarPlayer;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
 
 /**
  *
  * @author dell
  */
 public class CrearCuenta extends javax.swing.JFrame {
-    private static ArrayList<Player> players = new ArrayList<>();;
-    public static Player loggedIn, loggedIn2; 
-
-    public static Player Verificar(String p){
-        for(Player x: players){
-            if(x.getUser().equalsIgnoreCase(p)){
-                return x;
-            }
-        }
-        return null;
+    
+    
+    public CrearCuenta(){
+        initComponents();       
     }
     
-    public boolean pass(String pass){
-        if(pass.length()==5){
-            
-            return true;
-        }
-        JOptionPane.showMessageDialog(rootPane, "Contrasena debe ser de 5 caracteres");
-        return false;
-    }
-    
-    public boolean AgregarPlayer(String u, String p){
-        if(Verificar(u) == null && pass(p)){
-            players.add(new Player(u,p));
-            return true;
-        }
-        return false;
-    }
-    
-    public static boolean LogIn(String u, String p){
-        for(Player x:players){
-            if(u.equalsIgnoreCase(x.getUser()) && p.equalsIgnoreCase(x.getPass())){
-                loggedIn = x;
-                return true;
-            }
-                
-        }
-        return false;
-    }
-    
-    public static boolean LogIn2(String u){
-        for(Player x:players){
-            if(u.equalsIgnoreCase(x.getUser()) && !u.equalsIgnoreCase(loggedIn.getUser())){
-                loggedIn2 = x;
-                return true;
-            }
-                
-        }
-        return false;
-    }
-    public static boolean CambiarPassword(String a, String b){
-        if(loggedIn.getPass().equalsIgnoreCase(a)){
-            loggedIn.setPass(b);
-            return true;
-        }
-        return false;
-    }
-    /**
-     * Creates new form CrearCuenta
-     */
-    public CrearCuenta() {
-        
-        initComponents();
-        
-        
-    }
-
+ 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,14 +132,18 @@ public class CrearCuenta extends javax.swing.JFrame {
         // TODO add your handling code here:
         String jugador = txtUsuario.getText();
         String contr = String.valueOf(txtContrasena.getPassword());
-        if(AgregarPlayer(jugador,contr)){
-            JOptionPane.showMessageDialog(rootPane, "Cuenta Creada Exitosamente!");
-             dispose();
-        }
-        else{
-            JOptionPane.showMessageDialog(rootPane, "Su cuenta no ha sido creada");
-            txtUsuario.setText("");
-            txtContrasena.setText("");
+        try {
+            if(AgregarPlayer(jugador,contr)){
+                JOptionPane.showMessageDialog(rootPane, "Cuenta Creada Exitosamente!");
+                dispose();
+            }
+            else{
+                JOptionPane.showMessageDialog(rootPane, "Su cuenta no ha sido creada");
+                txtUsuario.setText("");
+                txtContrasena.setText("");
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);;
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
