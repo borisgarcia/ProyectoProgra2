@@ -14,6 +14,8 @@ import javax.swing.ListSelectionModel;
 import piezas.Pieza;
 import Test.Jugador;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class Tablero extends JFrame implements MouseListener {
@@ -31,10 +33,34 @@ public class Tablero extends JFrame implements MouseListener {
 
     public Tablero() {
         retirar= new JButton("Retirar");
+        retirar.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e)
+         {
+             Object source = e.getSource();
+             if (source instanceof JButton) {
+                 JButton btn = (JButton)source;
+                int dialogButton = JOptionPane.YES_NO_OPTION;
+                int dialogResult = JOptionPane.showConfirmDialog (null, "desea retirarse: "+jugadorActivo.toString(),"SEGURO",dialogButton);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    dispose();
+                }
+             }
+         }
+        });
         retirar.setBounds(0, 0,20,20);
         retirar.setBackground(Color.red);
         retirar.setForeground(Color.white);
         salvar = new JButton("Guardar y Salir");
+        salvar.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e)
+         {
+             Object source = e.getSource();
+             if (source instanceof JButton) {
+                 JButton btn = (JButton)source;
+                 dispose();
+             }
+         }
+        });    
         salvar.setBounds(0, 0,20,20);
         salvar.setBackground(Color.red);  
         salvar.setForeground(Color.white);
@@ -120,8 +146,10 @@ public class Tablero extends JFrame implements MouseListener {
 
         jugadorLabelGlobal.setText(jugadorActivo.toString());
     }
+
     @Override
     public void mouseEntered(MouseEvent e) {
+
 
     }
     @Override
@@ -137,7 +165,6 @@ public class Tablero extends JFrame implements MouseListener {
     @Override
     public void mouseReleased(MouseEvent e) {
     }
-    
     public void mensaje(String string) {
         mensajeLabelGlobal.setText(string);	
     }
