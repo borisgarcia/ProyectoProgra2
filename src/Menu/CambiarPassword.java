@@ -151,9 +151,15 @@ public class CambiarPassword extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        dispose();
-        MiCuenta t = new MiCuenta();
-        t.setVisible(true);
+
+        try {
+            dispose();
+            MiCuenta t = new MiCuenta();
+            t.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(CambiarPassword.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

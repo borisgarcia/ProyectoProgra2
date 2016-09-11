@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import piezas.Rey;
 
 public class Tablero extends JFrame implements MouseListener {
     private TableroControlador tableroModel;
@@ -32,6 +33,8 @@ public class Tablero extends JFrame implements MouseListener {
     private JLabel mensajeLabelGlobal;
     private JButton retirar;
     private JButton salvar;
+    private boolean juegoFinalizado = false;
+	
 
     public Tablero() {
         retirar= new JButton("Retirar");
@@ -108,6 +111,12 @@ public class Tablero extends JFrame implements MouseListener {
     }
     @Override
     public void mouseClicked(MouseEvent e) {
+        if(juegoFinalizado){
+            JOptionPane.showMessageDialog(this, "El juego ha finalizado...");
+            dispose();
+            return;
+	}
+        
         int y = tabla.getSelectionModel().getLeadSelectionIndex();
         int x = tabla.getColumnModel().getSelectionModel().getLeadSelectionIndex();
         Casilla casilla = tableroModel.getCasilla(x, y);
@@ -142,6 +151,7 @@ public class Tablero extends JFrame implements MouseListener {
         if(PlayerActivo.equals(PlayerBlanco)){
             PlayerActivo = PlayerNegro;
             PlayerPasivo = PlayerBlanco;
+            
         }
         else{
             PlayerActivo = PlayerBlanco;
@@ -159,11 +169,9 @@ public class Tablero extends JFrame implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
-
     }
     @Override
     public void mousePressed(MouseEvent e) {
-
 
     }
     @Override
@@ -179,5 +187,9 @@ public class Tablero extends JFrame implements MouseListener {
 
     public Player getPlayerPasivo() {
         return PlayerPasivo;
+    }
+    
+    public void finDelJuego() {
+        this.juegoFinalizado = true;
     }
 }

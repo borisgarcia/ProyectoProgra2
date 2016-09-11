@@ -24,8 +24,8 @@ public class TableroControlador extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
     private String[] columnNames = { "A", "B", "C", "D", "E", "F", "G", "H" };
     private Casilla[][] casillas;
-    private Rey reyNegro;
-    private Rey reyBlanco;
+    private final Rey reyNegro;
+    private final Rey reyBlanco;
     private Casilla casillaHastaLocal;
     private Pieza piezaDesdeLocal;
     private Pieza piezaHastaLocal;
@@ -120,8 +120,7 @@ public class TableroControlador extends AbstractTableModel {
                 tablero.mensaje("Movimiento invalido...");
                 return false;
         }
-        Casilla casillaHasta = getCasilla(posicionHasta.getX(),
-                        posicionHasta.getY());
+        Casilla casillaHasta = getCasilla(posicionHasta.getX(),posicionHasta.getY());
         mover(casillaDesde, posicionHasta, casillaHasta);
         Player PlayerActivo = tablero.getPlayerActivo();
         Player PlayerPasivo = tablero.getPlayerPasivo();
@@ -145,4 +144,6 @@ public class TableroControlador extends AbstractTableModel {
         piezaDesdeLocal.setPosicion(posicionHastaLocal);
         casillaHastaLocal.setPieza(piezaDesdeLocal);
     }
+    
+    
 }
