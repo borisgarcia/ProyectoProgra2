@@ -6,8 +6,11 @@
 package Menu;
 
 import static Menu.Funciones.CerrarCuenta;
+import static Menu.Funciones.Verificar;
 import static Menu.Funciones.loggedIn;
+import static Menu.MenuInicio.users;
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -22,13 +25,17 @@ public class MiCuenta extends javax.swing.JFrame {
     /**
      * Creates new form MiCuenta
      */
-    public MiCuenta() {     
-          initComponents();
-//        txtUsuario.setText(loggedIn.getUser());
-//        txtPuntos.setText(""+loggedIn.getPuntos());
-//        txtFecha.setText(""+loggedIn.getDia().getTime());
-//        String a = loggedIn.isActivo()? "Si": "No";
-//        txtActivo.setText(a);
+    public MiCuenta() throws IOException {     
+        initComponents();
+        if(Verificar(loggedIn)){
+            txtUsuario.setText(loggedIn);
+            users.readUTF();
+            txtPuntos.setText(""+users.readInt());
+            Date fecha = new Date(users.readLong());
+            txtFecha.setText(""+fecha);
+            String a = users.readBoolean()? "Si": "No";
+            txtActivo.setText(a);
+        }
     }
 
     /**
@@ -223,12 +230,14 @@ public class MiCuenta extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         dispose();
+        MenuPrincipal t = new MenuPrincipal();
+        t.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws IOException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -255,7 +264,11 @@ public class MiCuenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MiCuenta().setVisible(true);
+                try {
+                    new MiCuenta().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(MiCuenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
             }
         });

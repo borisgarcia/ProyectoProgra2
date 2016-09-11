@@ -6,9 +6,7 @@
 package Menu;
 
 import static Menu.MenuInicio.users;
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -16,9 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Boris
  */
-public class Funciones extends javax.swing.JFrame {
-    public static final String ROOT = "chaturanga";
-    
+public class Funciones extends javax.swing.JFrame {  
     public static String loggedIn, loggedIn2; 
     
     public static boolean Verificar(String p) throws IOException{
@@ -93,8 +89,9 @@ public class Funciones extends javax.swing.JFrame {
             users.readUTF();
             users.skipBytes(12);
             users.writeBoolean(false);
-        }
-        
+        }       
         return false;
     }
+    
+
 }

@@ -5,7 +5,7 @@
  */
 package Menu;
 
-import static Menu.Funciones.ROOT;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -16,6 +16,7 @@ import java.io.RandomAccessFile;
  */
 public class MenuInicio extends javax.swing.JFrame {
     public static RandomAccessFile users;
+    public static final String ROOT = "CHATURANGA";
     /**
      * Creates new form MenuInicio
      */

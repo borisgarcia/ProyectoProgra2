@@ -6,6 +6,7 @@
 package Menu;
 
 import static Menu.Funciones.AgregarPlayer;
+import static Menu.Funciones.LogIn;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -136,7 +137,8 @@ public class CrearCuenta extends javax.swing.JFrame {
             if(AgregarPlayer(jugador,contr)){
                 JOptionPane.showMessageDialog(rootPane, "Cuenta Creada Exitosamente!");
                 dispose();
-                MenuInicio t = new MenuInicio();
+                LogIn(jugador,contr);
+                MenuPrincipal t = new MenuPrincipal();
                 t.setVisible(true);
             }
             else{
