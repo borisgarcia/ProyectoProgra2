@@ -6,7 +6,9 @@
 package Menu;
 
 
+
 import java.util.Calendar;
+import piezas.Rey;
 
 
 /**
@@ -26,43 +28,43 @@ public class Player {
         dia = Calendar.getInstance();
         activo=true;
     }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public int getPuntos() {
-        return puntos;
-    }
-
-    public Calendar getDia() {
-        return dia;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-       
-    public int GuardarPuntos(int x){
-        return puntos += x; 
-    }
-    
-    private void refreshUltimoUso(){
-       dia = Calendar.getInstance(); 
-    }
     
     public void isActiva(){
         Calendar hace6 = Calendar.getInstance();
         hace6.add(Calendar.MONTH, -6);
         activo = dia.after(hace6);
-    }     
+    }    
+    
+    public boolean equals(Object obj) {
+        if(!(obj instanceof Player))
+                return false;
+        return ((Player) obj).esBlanco() == this.esBlanco();
+    }
+    private boolean esBlanco;	
+    private Rey miRey;
+
+    public Player(boolean b) {
+        this.esBlanco = b;
+    }
+
+    public Player() {
+
+    }
+
+    public boolean esBlanco(){
+        return esBlanco;
+    }
+
+    public String toString(){
+        return esBlanco ? "Jugador Blanco" : "Jugador Negro";
+    }
+    public void setMiRey(Rey miRey) {
+        this.miRey = miRey;
+    }
+
+    public Rey getMiRey() {
+        return miRey;
+    }
+
     
 }

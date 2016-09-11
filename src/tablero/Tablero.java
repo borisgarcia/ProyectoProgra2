@@ -1,5 +1,8 @@
 package tablero;
 
+
+import Menu.MenuPrincipal;
+import Menu.Player;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
@@ -12,7 +15,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import piezas.Pieza;
-import Test.Jugador;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +23,10 @@ import javax.swing.JButton;
 public class Tablero extends JFrame implements MouseListener {
     private TableroControlador tableroModel;
     private JTable tabla;
-    private Jugador jugadorBlanco;
-    private Jugador jugadorNegro;
-    private Jugador jugadorActivo;
-    private Jugador jugadorPasivo;
+    private Player PlayerBlanco;
+    private Player PlayerNegro;
+    private Player PlayerActivo;
+    private Player PlayerPasivo;
     private JLabel jugadorLabelGlobal;
     private Casilla casillaActiva;
     private JLabel mensajeLabelGlobal;
@@ -38,11 +40,13 @@ public class Tablero extends JFrame implements MouseListener {
          {
              Object source = e.getSource();
              if (source instanceof JButton) {
-                 JButton btn = (JButton)source;
+                JButton btn = (JButton)source;
                 int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "desea retirarse: "+jugadorActivo.toString(),"SEGURO",dialogButton);
+                int dialogResult = JOptionPane.showConfirmDialog (null, "desea retirarse: "+PlayerActivo.toString(),"SEGURO",dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
                     dispose();
+                    MenuPrincipal t = new MenuPrincipal();
+                    t.setVisible(true);
                 }
              }
          }
@@ -65,12 +69,12 @@ public class Tablero extends JFrame implements MouseListener {
         salvar.setBackground(Color.red);  
         salvar.setForeground(Color.white);
         tableroModel = new TableroControlador();		
-        jugadorBlanco = new Jugador(true);
-        jugadorBlanco.setMiRey(tableroModel.getReyBlanco());		
-        jugadorNegro = new Jugador();
-        jugadorNegro.setMiRey(tableroModel.getReyNegro());		
-        jugadorActivo = jugadorBlanco;
-        jugadorPasivo = jugadorNegro;		
+        PlayerBlanco = new Player(true);
+        PlayerBlanco.setMiRey(tableroModel.getReyBlanco());		
+        PlayerNegro = new Player();
+        PlayerNegro.setMiRey(tableroModel.getReyNegro());		
+        PlayerActivo = PlayerBlanco;
+        PlayerPasivo = PlayerNegro;		
         tabla = new JTable(tableroModel);
         tabla.setDefaultRenderer(Casilla.class, new CasillaRenderer());
         tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -100,7 +104,7 @@ public class Tablero extends JFrame implements MouseListener {
         panel2.add(mensajePanel);
         panel3.add(panel2);
         panel.add(panel3, BorderLayout.SOUTH);
-        jugadorLabelGlobal.setText(jugadorActivo.toString());
+        jugadorLabelGlobal.setText(PlayerActivo.toString());
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -112,7 +116,7 @@ public class Tablero extends JFrame implements MouseListener {
         if(casillaActiva == null && pieza == null)//Casilla en blanco
             return;
 
-        if(casillaActiva == null && pieza != null && pieza.esBlanca() == jugadorActivo.esBlanco()){ // Seleccione una pieza mia
+        if(casillaActiva == null && pieza != null && pieza.esBlanca() == PlayerActivo.esBlanco()){ // Seleccione una pieza mia
             casilla.setSeleccionada();
             casillaActiva = casilla;
             tableroModel.fireTableDataChanged();
@@ -135,16 +139,16 @@ public class Tablero extends JFrame implements MouseListener {
     }
 
     private void intercambiarJugador() {
-        if(jugadorActivo.equals(jugadorBlanco)){
-            jugadorActivo = jugadorNegro;
-            jugadorPasivo = jugadorBlanco;
+        if(PlayerActivo.equals(PlayerBlanco)){
+            PlayerActivo = PlayerNegro;
+            PlayerPasivo = PlayerBlanco;
         }
         else{
-            jugadorActivo = jugadorBlanco;
-            jugadorPasivo = jugadorNegro;
+            PlayerActivo = PlayerBlanco;
+            PlayerPasivo = PlayerNegro;
         }
 
-        jugadorLabelGlobal.setText(jugadorActivo.toString());
+        jugadorLabelGlobal.setText(PlayerActivo.toString());
     }
 
     @Override
@@ -169,11 +173,11 @@ public class Tablero extends JFrame implements MouseListener {
         mensajeLabelGlobal.setText(string);	
     }
 
-    public Jugador getJugadorActivo() {
-        return jugadorActivo;
+    public Player getPlayerActivo() {
+        return PlayerActivo;
     }
 
-    public Jugador getJugadorPasivo() {
-        return jugadorPasivo;
+    public Player getPlayerPasivo() {
+        return PlayerPasivo;
     }
 }

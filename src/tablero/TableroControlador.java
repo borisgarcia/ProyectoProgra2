@@ -1,8 +1,9 @@
 package tablero;
 
+import Menu.Player;
 import javax.swing.table.AbstractTableModel;
 
-import Test.Jugador;
+
 
 import piezas.elefante;
 import piezas.Caballo;
@@ -122,8 +123,8 @@ public class TableroControlador extends AbstractTableModel {
         Casilla casillaHasta = getCasilla(posicionHasta.getX(),
                         posicionHasta.getY());
         mover(casillaDesde, posicionHasta, casillaHasta);
-        Jugador jugadorActivo = tablero.getJugadorActivo();
-        Jugador jugadorPasivo = tablero.getJugadorPasivo();
+        Player PlayerActivo = tablero.getPlayerActivo();
+        Player PlayerPasivo = tablero.getPlayerPasivo();
         casillaDesde.vaciar();
         fireTableDataChanged();
         return true;

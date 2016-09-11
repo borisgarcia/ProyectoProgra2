@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Funciones extends javax.swing.JFrame {  
     public static String loggedIn, loggedIn2; 
+    public static Player log1, log2; 
     
     public static boolean Verificar(String p) throws IOException{
         users.seek(0);        

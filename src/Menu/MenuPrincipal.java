@@ -7,6 +7,9 @@ package Menu;
 
 
 import java.awt.Dimension;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import tablero.Tablero;
@@ -131,8 +134,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void btnMiCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiCuentaActionPerformed
         // TODO add your handling code here:
         dispose();
-        MiCuenta m = new MiCuenta();
-        m.setVisible(true);
+        MiCuenta m;
+        try {
+            m = new MiCuenta();
+            m.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MenuPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }//GEN-LAST:event_btnMiCuentaActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
