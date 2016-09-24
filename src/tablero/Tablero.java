@@ -1,197 +1,340 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package tablero;
 
-
+import static Menu.Funciones.loggedIn;
+import static Menu.Funciones.loggedIn2;
 import Menu.MenuPrincipal;
-import Menu.Player;
-import java.awt.BorderLayout;
-import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
+import java.io.Serializable;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
+import piezas.Caballo;
+import piezas.FichaVacia;
+import piezas.Peon;
 import piezas.Pieza;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
+import piezas.Reina;
 import piezas.Rey;
+import piezas.Torre;
+import piezas.elefante;
 
-public class Tablero extends JFrame implements MouseListener {
-    private TableroControlador tableroModel;
-    private JTable tabla;
-    private Player PlayerBlanco;
-    private Player PlayerNegro;
-    private Player PlayerActivo;
-    private Player PlayerPasivo;
-    private JLabel jugadorLabelGlobal;
-    private Casilla casillaActiva;
-    private JLabel mensajeLabelGlobal;
-    private JButton retirar;
-    private JButton salvar;
-    private boolean juegoFinalizado = false;
-	
-
-    public Tablero() {
-        retirar= new JButton("Retirar");
-        retirar.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e)
-         {
-             Object source = e.getSource();
-             if (source instanceof JButton) {
-                JButton btn = (JButton)source;
-                int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "desea retirarse: "+PlayerActivo.getUser(),"SEGURO",dialogButton);
-                if(dialogResult == JOptionPane.YES_OPTION){
-                    dispose();
-                    MenuPrincipal t = new MenuPrincipal();
-                    t.setVisible(true);
-                }
-             }
-         }
-        });
-        retirar.setBounds(0, 0,20,20);
-        retirar.setBackground(Color.red);
-        retirar.setForeground(Color.white);
-        salvar = new JButton("Guardar y Salir");
-        salvar.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e)
-         {
-             Object source = e.getSource();
-             if (source instanceof JButton) {
-                 JButton btn = (JButton)source;
-                 dispose();
-             }
-         }
-        });    
-        salvar.setBounds(0, 0,20,20);
-        salvar.setBackground(Color.red);  
-        salvar.setForeground(Color.white);
-        tableroModel = new TableroControlador();		
-        PlayerBlanco = new Player(true);
-        PlayerBlanco.setMiRey(tableroModel.getReyBlanco());		
-        PlayerNegro = new Player();
-        PlayerNegro.setMiRey(tableroModel.getReyNegro());		
-        PlayerActivo = PlayerBlanco;
-        PlayerPasivo = PlayerNegro;		
-        tabla = new JTable(tableroModel);
-        tabla.setDefaultRenderer(Casilla.class, new CasillaRenderer());
-        tabla.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabla.setCellSelectionEnabled(true);
-        tabla.setRowHeight(48);
-        tabla.addMouseListener(this);
-        JPanel panel = (JPanel) this.getContentPane();
-        panel.setLayout(new BorderLayout());
-        panel.add(tabla, BorderLayout.CENTER);
-        JPanel panel2 = new JPanel();
-        panel2.setLayout(new BoxLayout(panel2, BoxLayout.PAGE_AXIS ));
-        JPanel panel3 = new JPanel();
-        JLabel jugadorLabel = new JLabel("Jugador:");		
-        JPanel jugadorPanel = new JPanel();
-        jugadorPanel.add(jugadorLabel);
-        jugadorLabelGlobal = new JLabel("");
-        jugadorLabelGlobal.setFont(new Font("Arial", Font.BOLD, 15));
-        jugadorPanel.add(jugadorLabelGlobal);
-        panel2.add(jugadorPanel);
-        panel3.add(retirar);
-        panel3.add(salvar);
-        JLabel mensajeLabel = new JLabel("Mensaje:");
-        mensajeLabelGlobal = new JLabel("");
-        JPanel mensajePanel = new JPanel();
-        mensajePanel.add(mensajeLabel);
-        mensajePanel.add(mensajeLabelGlobal);
-        panel2.add(mensajePanel);
-        panel3.add(panel2);
-        panel.add(panel3, BorderLayout.SOUTH);
-        jugadorLabelGlobal.setText(PlayerActivo.getUser());
+/**
+ *
+ * @author Boris
+ */
+public class Tablero extends JPanel implements Serializable{
+    public int currentX, currentY, t;
+    boolean chosenPiece = false;
+    transient Image background = Toolkit.getDefaultToolkit().createImage("src/img/tablero.GIF");
+    ImageIcon imgBack = new ImageIcon(background);
+    JLabel[][] piezas = new Pieza[8][8];
+    GridLayout gridLayout = new GridLayout(8, 8);
+    
+    public Tablero(){
+        System.out.println("Hola");
+        initCuadros();
+        setBounds(0, 0, 486, 485);
     }
+    
     @Override
-    public void mouseClicked(MouseEvent e) {
-        if(juegoFinalizado){
-            JOptionPane.showMessageDialog(this, "El juego ha finalizado...");
-            dispose();
-            return;
-	}
-        
-        int y = tabla.getSelectionModel().getLeadSelectionIndex();
-        int x = tabla.getColumnModel().getSelectionModel().getLeadSelectionIndex();
-        Casilla casilla = tableroModel.getCasilla(x, y);
-        Pieza pieza = casilla.getPieza();	
-
-        if(casillaActiva == null && pieza == null)//Casilla en blanco
-            return;
-
-        if(casillaActiva == null && pieza != null && pieza.esBlanca() == PlayerActivo.esBlanco()){ // Seleccione una pieza mia
-            casilla.setSeleccionada();
-            casillaActiva = casilla;
-            tableroModel.fireTableDataChanged();
-            mensaje("Puede mover");
-            return;
-        }
-
-        if(casillaActiva != null){			
-            boolean mover = tableroModel.intentarMover(casillaActiva,new Posicion(x, y), this);
-            if(mover){
-                casillaActiva = null;
-                intercambiarJugador();
-                return;
+    public void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(imgBack.getImage(), 0, 0, this);
+    }
+    
+    public final void initCuadros(){
+        setLayout(gridLayout);
+        int contTurnos = 0;
+        t = 1;
+        for(int y = 0; y<8; y++){
+            for(int x = 0; x<8; x++){
+                if((y==0 && x==0) || (y==0 && x==7) || (y==7 && x==0) || (y==7 && x==7))
+                    piezas[y][x] = new Torre("Torre", t);
+                
+                else if((y==0 && x==1) || (y==0 && x==6) || (y==7 && x==1) || (y==7 && x==6))
+                    piezas[y][x] = new Caballo("Caballo", t);
+                
+                else if((y==0 && x==2) || (y==0 && x==5) || (y==7 && x==2) || (y==7 && x==5))
+                    piezas[y][x] = new elefante("Elefante", t);
+                
+                else if((y==0 && x==3) || (y==7 && x==4))
+                    piezas[y][x] = new Reina("Reina", t);
+                
+                else if((y==0 && x==4) || (y==7 && x==3))
+                    piezas[y][x] = new Rey("Rey", t);
+                
+                else if((y==1 && x==0) || (y==1 && x==1) || (y==1 && x==2) || (y==1 && x==3)|| 
+                        (y==1 && x==4) || (y==1 && x==5) || (y==1 && x==6) || (y==1 && x==7)||
+                        (y==6 && x==0) || (y==6 && x==1) || (y==6 && x==2) || (y==6 && x==3)|| 
+                        (y==6 && x==4) || (y==6 && x==5) || (y==6 && x==6) || (y==6 && x==7))
+                    piezas[y][x] = new Peon("Peon", t);
+                
+                else
+                    piezas[y][x] = new FichaVacia("Ficha Vacia", 0);
+                
+                contTurnos++;
+                piezas[y][x].setIcon(new ImageIcon(((Pieza)piezas[y][x]).icon()));
+                piezas[y][x].addMouseListener(new PressedMouse());
+                add(piezas[y][x]);
+                
             }
-            casillaActiva.deSeleccionar();
-            casillaActiva = null;
-            tableroModel.fireTableDataChanged();
-            return;
-        }
+            if(contTurnos == 36)
+                Turnos();
+        }Turnos();
     }
 
-    private void intercambiarJugador() {
-        if(PlayerActivo.equals(PlayerBlanco)){
-            PlayerActivo = PlayerNegro;
-            PlayerPasivo = PlayerBlanco;
+    private void Turnos() {
+        if(t==1)
+            t = 2;
+        else
+            t = 1;
+    }
+    
+    class PressedMouse implements MouseListener, Serializable{
+        @Override
+        public void mousePressed(MouseEvent me) {}
+        @Override
+        public void mouseReleased(MouseEvent me) {}
+        @Override
+        public void mouseEntered(MouseEvent me) {}
+        @Override
+        public void mouseExited(MouseEvent me) {}
+        @Override
+        public void mouseClicked(MouseEvent me) {
+            Object source = me.getSource();
+            for(int y = 0; y<10; y++){
+                for(int x = 0; x<9; x++){
+                    if(source==piezas[y][x] && !(source instanceof FichaVacia) && ((Pieza)piezas[y][x]).turno==t){
+                        currentX = x;
+                        currentY = y;
+                        chosenPiece = true;
+                    }
+                    else if(source==piezas[y][x] && source instanceof FichaVacia && chosenPiece){
+                        moverPieza(x, y);
+                    }
+                    else if(source==piezas[y][x] && !(source instanceof FichaVacia) && chosenPiece){
+                        attackPiece(x, y);
+                    }
+                }
+            }
+            String user = (t==1 ? loggedIn : loggedIn2);
             
         }
-        else{
-            PlayerActivo = PlayerBlanco;
-            PlayerPasivo = PlayerNegro;
+    }
+    
+   public void movimientoReyReina(int x, int y){
+        setNewFicha(x, y);
+    }
+    
+    public void movimientoEle(int x, int y){
+        if(currentX+2==x && currentY+2==y){
+            if(piezas[currentY+1][currentX+1] instanceof FichaVacia)
+                setNewFicha(x, y);
         }
+
+        else if(currentX+2==x && currentY-2==y){
+            if(piezas[currentY-1][currentX+1] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+
+        else if(currentX-2==x && currentY+2==y){
+            if(piezas[currentY+1][currentX-1] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+
+        else if(currentX-2==x && currentY-2==y){
+            if(piezas[currentY-1][currentX-1] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+    }
+    
+    public void movimientoCaballo(int x, int y){
+        if((currentX+1==x && currentY+2==y) ||(currentX-1==x && currentY+2==y)){
+            if(piezas[currentY+1][currentX] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+        else if((currentX+1==x && currentY-2==y) || (currentX-1==x && currentY-2==y)){
+            if(piezas[currentY-1][currentX] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+        else if((currentX+2==x && currentY+1==y) || (currentX+2==x && currentY-1==y)){
+            if(piezas[currentY][currentX+1] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+        else if((currentX-2==x && currentY+1==y) || (currentX-2==x && currentY-1==y)){
+            if(piezas[currentY][currentX-1] instanceof FichaVacia)
+                setNewFicha(x, y);
+        }
+    }
+    
+    public void movimientoTorre(int x, int y, int MOA){
+        int intermmediatePiece = 0;
+        if(x>currentX && currentY==y){
+            for(int x1 = currentX+1; x1<x; x1++)
+                if(!(piezas[currentY][x1] instanceof FichaVacia))
+                    intermmediatePiece++;
+        }
+        else if(x<currentX && currentY==y){
+            for(int x1 = currentX-1; x1>x; x1--)
+                if(!(piezas[currentY][x1] instanceof FichaVacia))
+                    intermmediatePiece++;
+        }
+        else if(x==currentX && y>currentY){
+            for(int y1 = currentY+1; y1<y; y1++)
+                if(!(piezas[y1][currentX] instanceof FichaVacia))
+                    intermmediatePiece++;
+        }
+        else if(x==currentX && y<currentY){
+            for(int y1 = currentY-1; y1>y; y1--)
+                if(!(piezas[y1][currentX] instanceof FichaVacia))
+                    intermmediatePiece++;
+        }
+        if(intermmediatePiece==MOA && MOA==1)
+            setNewFicha(x, y);
+        else if(intermmediatePiece==0 && MOA==0)
+            setNewFicha(x, y);
+    }
+    
+    public void movements(int x, int y){
+        Pieza temp = (Pieza)piezas[currentY][currentX];
+        Pieza tempNuevo = (Pieza)piezas[y][x];
+        if(piezas[currentY][currentX] instanceof Reina || piezas[currentY][currentX] instanceof Rey)
+            movimientoReyReina(x, y);
+
+        else if(piezas[currentY][currentX] instanceof elefante)
+            movimientoEle(x, y);
+
+        else if(piezas[currentY][currentX] instanceof Caballo)
+            movimientoCaballo(x, y);
+
+        else if((piezas[currentY][currentX] instanceof Torre))
+            movimientoTorre(x, y, 0);
+
+        else
+            setNewFicha(x, y);
         
-
-        jugadorLabelGlobal.setText(PlayerActivo.getUser());
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-    @Override
-    public void mouseReleased(MouseEvent e) {
-    }
-    public void mensaje(String string) {
-        mensajeLabelGlobal.setText(string);	
-    }
-
-    public Player getPlayerActivo() {
-        return PlayerActivo;
-    }
-
-    public Player getPlayerPasivo() {
-        return PlayerPasivo;
+        if(facing()){
+            piezas[currentY][currentX] = temp;
+            piezas[y][x] = tempNuevo;
+            refresh();
+            Turnos();
+        }
     }
     
-    public void finDelJuego() {
-        this.juegoFinalizado = true;
+    public void moverPieza(int x, int y){
+        if(((Pieza)piezas[currentY][currentX]).validarMove(currentX, currentY, x, y))
+            movements(x, y);
     }
     
+    public void attacks(int x, int y){
+        Pieza temp = (Pieza)piezas[currentY][currentX];
+        Pieza tempNuevo = (Pieza)piezas[y][x];
+        if(piezas[currentY][currentX] instanceof Reina || piezas[currentY][currentX] instanceof Rey)
+            movimientoReyReina(x, y);
+
+        else if(piezas[currentY][currentX] instanceof elefante)
+            movimientoEle(x, y);
+
+        else if(piezas[currentY][currentX] instanceof Caballo)
+            movimientoCaballo(x, y);
+
+        else if(piezas[currentY][currentX] instanceof Torre)
+            movimientoTorre(x, y, 0);
+        
+        else
+            setNewFicha(x, y);
+        
+        if(facing()){
+            piezas[currentY][currentX] = temp;
+            piezas[y][x] = tempNuevo;
+            refresh();
+            Turnos();
+        }
+    }
     
+    public void attackPiece(int x, int y){
+        if(((Pieza)piezas[currentY][currentX]).validarMove(currentX, currentY, x, y))
+            attacks(x, y);
+    }
+    
+    public boolean facing(){
+        boolean encontrado = false, f = false;
+        for(int y = 0; y<8; y++){
+            for(int x = 0; x<8; x++){
+                if(piezas[y][x] instanceof Rey){
+                    encontrado = true;
+                    for(int z = y+1; z<8; z++){
+                        if(!(piezas[z][x] instanceof FichaVacia)){
+                            if(piezas[z][x] instanceof Rey)
+                                f = true;
+                            else
+                                f = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(encontrado) break;
+        }
+        if(f)
+            return true;
+        return false;
+    }
+    
+    public void refresh(){
+        removeAll();
+        for(int y = 0; y<8; y++){
+            for(int x = 0; x<8; x++){
+                piezas[y][x].addMouseListener(new PressedMouse());
+                add(piezas[y][x]);
+            }
+        }
+        revalidate();
+    }
+    
+    public void setNewFicha(int x, int y){
+        piezas[y][x] = piezas[currentY][currentX];
+        newFichaVacia(currentX, currentY);
+        chosenPiece = false;
+        Turnos();
+        refresh();
+        endGame();
+    }
+    
+    public void newFichaVacia(int x, int y){
+        piezas[y][x] = new FichaVacia("Ficha Vacia", t);
+        piezas[y][x].addMouseListener(new PressedMouse());
+    }
+    
+    public boolean ReyesVivos(){
+        int cant= 0;
+        for(int y = 0; y<8; y++)
+            for(int x = 0; x<8; x++)
+                if(piezas[y][x] instanceof Rey)
+                    cant++;
+        if(cant==2)
+            return true;
+        return false;
+    }
+    
+    public void endGame(){
+        if(!ReyesVivos()){
+            String ganador = (t==1 ? loggedIn2 : loggedIn);
+            String perdedor = (t==1 ? loggedIn : loggedIn2);
+            
+            String victoria = ganador+" has won the game against "+perdedor+". "+ganador+" has gained 3 points.";
+            
+            MenuPrincipal t = new MenuPrincipal();
+            t.setVisible(true);
+        }
+    }
 }

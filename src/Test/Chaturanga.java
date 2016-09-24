@@ -8,6 +8,7 @@ import java.awt.EventQueue;
 
 
 public class Chaturanga {
+    public static Chaturanga cha = new Chaturanga();
     public static void main(String[] args) {
 	EventQueue.invokeLater(() -> {
             try {

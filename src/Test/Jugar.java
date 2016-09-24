@@ -15,11 +15,6 @@ import tablero.Tablero;
  */
 public class Jugar {
     public static void main(String[] args) {
-        Tablero frame = new Tablero();
-        frame.setAlwaysOnTop(true);
-        frame.setSize( new Dimension(1000, 520) );
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setLocationByPlatform(true);      
-        frame.setVisible(true);
+        
     }
 }
