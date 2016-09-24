@@ -1,52 +1,28 @@
 package piezas;
 
-import tablero.Casilla;
-import tablero.Posicion;
-import tablero.Tablero;
-import tablero.TableroControlador;
 
 public class Peon extends Pieza {
 
-    public Peon(boolean b, int y, int x) {
-        this.esBlanca = b;
-        if (esBlanca)
-            this.IMAGEN = "wp.gif";
-        else
-            this.IMAGEN = "bp.gif";
-        pos = new Posicion(x, y);
-    }
-
-    public String toString() {
-        return "Peon";
+ public Peon(String name, int turno) {
+        super(name,turno);
     }
 
     @Override
-    public boolean esMovimientoValido(Posicion posicion,TableroControlador tableromodel, Tablero tablero) {
-        int xTo = posicion.getX();
-        int yTo = posicion.getY();
-
-        Casilla casillaHasta = tableromodel.getCasilla(xTo,yTo);
-        Pieza pieza2 = casillaHasta.getPieza();
-
-        if (pieza2 != null) {
-            if (esBlanca() == pieza2.esBlanca()) {
-                tablero.mensaje("Pieza de tu mismo color...");
-                return false;
-            }
+    public boolean validarMovimiento(int x, int y, int x1, int y1){
+        if(turno == 1){//Jugador 1 se mueve
+             if(y>4)//Jugador 1 ha cruzado el rio
+                return (y==y1 && (((x+1)==x1) || ((x-1)==x1))) || (x==x1 && (y+1)==y1);
+            return (x==x1 && (y+1)==y1);
         }
-
-        int mov = esBlanca ? -1 : 1;
-
-        Casilla casillaTo = tableromodel.getCasilla(xTo, yTo);
-
-        int yFr = pos.getY();
-        int xFr = pos.getX();
-
-        if ((xFr == xTo && (yFr + mov) == yTo) && casillaTo.getPieza() == null)
-            return true;
-        if (Math.abs(xFr - xTo) == 1 && (yTo - yFr) == mov && casillaTo.getPieza() != null)
-			return true;
-
-        return false;
+        if(y<5)//Jugador 2 se mueve hacia arriba y ya ha cruzado el rio
+            return ((y==y1 && ((x+1)==x1 || (x-1)==x1)) || (x==x1 && (y-1)==y1));
+        return (x==x1 && y-1==y1);
     }
+
+    @Override
+    public String icon() {
+        return "src/img/"+getColor()+"p"+".png";
+    }
+       
+    
 }

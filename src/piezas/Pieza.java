@@ -1,34 +1,31 @@
  package piezas;
 
-import tablero.Casilla;
-import tablero.Posicion;
-import tablero.Tablero;
-import tablero.TableroControlador;
+import javax.swing.JLabel;
 
-public abstract class Pieza {
-    protected String IMAGEN;
-    protected boolean esBlanca;
-    protected Posicion pos;
-
-    public final String getRutaImagen() {
-        return IMAGEN;
+public abstract class Pieza extends JLabel{
+    public String color;
+    public int turno;
+    String name;
+    
+    public Pieza(String name, int turno){
+        super();
+        this.name = name;
+        this.turno = turno;
+        color = (turno == 1 ? "w" : "b");
     }
-
-    public String toString() {
-        return "";
+    
+    public final String getFicha(){
+        return name;
     }
-
-    public Posicion getPosicion() {
-        return this.pos;
+    
+    public final int getTurno(){
+        return turno;
     }
-
-    public abstract boolean esMovimientoValido(Posicion posicion,TableroControlador tableromodel, Tablero tablero);
-
-    public final boolean esBlanca() {
-        return esBlanca;
+    
+    public final String getColor(){
+        return color;
     }
-
-    public void setPosicion(Posicion posicionHasta) {
-        this.pos = posicionHasta;
-    }
+    
+    public abstract boolean validarMovimiento(int x, int y, int x1, int y1);
+    public abstract String icon();
 }

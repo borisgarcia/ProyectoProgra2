@@ -8,12 +8,11 @@ package Menu;
 
 import static Menu.Funciones.LogIn2;
 import java.awt.Dimension;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import tablero.Tablero;
+
 
 /**
  *
@@ -118,12 +117,7 @@ public class Login2 extends javax.swing.JFrame {
         try {
             if(LogIn2(jugador)){
                 dispose();
-                Tablero frame = new Tablero();
-                frame.setAlwaysOnTop(true);
-                frame.setSize( new Dimension(1000, 520) );
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                frame.setLocationByPlatform(true);
-                frame.setVisible(true);
+                
             }
             else{
                 JOptionPane.showMessageDialog(rootPane, "Usuario no existe o debe ser diferente");
