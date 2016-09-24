@@ -7,8 +7,6 @@ import tablero.TableroControlador;
 
 public class Rey extends Pieza {
    
-    private boolean esJaque;
-
     public Rey(boolean b, int y, int x) {
         this.esBlanca = b;
         if (esBlanca)

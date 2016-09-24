@@ -7,6 +7,8 @@ package Menu;
 
 
 
+import static Menu.Funciones.loggedIn;
+import static Menu.Funciones.loggedIn2;
 import java.util.Calendar;
 import piezas.Rey;
 
@@ -35,6 +37,7 @@ public class Player {
         activo = dia.after(hace6);
     }    
     
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Player))
                 return false;
@@ -44,14 +47,22 @@ public class Player {
     private Rey miRey;
 
     public Player(boolean b) {
+        user = loggedIn;
+        puntos=0;
+        dia = Calendar.getInstance();
+        activo=true;
         this.esBlanco = b;
     }
 
     public Player() {
-
+        user = loggedIn2;
+        puntos=0;
+        dia = Calendar.getInstance();
+        activo=true;
     }
 
     public boolean esBlanco(){
+        
         return esBlanco;
     }
 
@@ -66,5 +77,10 @@ public class Player {
         return miRey;
     }
 
+    public String getUser() {
+        return user;
+    }
+    
+    
     
 }

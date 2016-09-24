@@ -1,6 +1,7 @@
 package tablero;
 
 import Menu.Player;
+import java.io.Serializable;
 import javax.swing.table.AbstractTableModel;
 
 
@@ -13,7 +14,8 @@ import piezas.Reina;
 import piezas.Rey;
 import piezas.Torre;
 
-public class TableroControlador extends AbstractTableModel {
+public class TableroControlador extends AbstractTableModel implements Serializable{
+    
     public Rey getReyNegro() {
 	return reyNegro;
     }
@@ -144,6 +146,10 @@ public class TableroControlador extends AbstractTableModel {
         piezaDesdeLocal.setPosicion(posicionHastaLocal);
         casillaHastaLocal.setPieza(piezaDesdeLocal);
     }
+    
+    Rey rn = getReyNegro();
+    Rey rb = getReyBlanco();
+    
     
     
 }

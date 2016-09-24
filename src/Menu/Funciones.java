@@ -58,6 +58,7 @@ public class Funciones extends javax.swing.JFrame {
             String pass = users.readUTF();
             if(pass.equalsIgnoreCase(p)){
                 loggedIn = u;
+                
                 return true;
             }
             
@@ -67,6 +68,8 @@ public class Funciones extends javax.swing.JFrame {
     
     public static boolean LogIn2(String u) throws IOException{
         if(Verificar(u) && !u.equals(loggedIn)){
+            
+            loggedIn2 = u;
             return true;
         }
         return false;

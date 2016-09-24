@@ -45,7 +45,7 @@ public class Tablero extends JFrame implements MouseListener {
              if (source instanceof JButton) {
                 JButton btn = (JButton)source;
                 int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog (null, "desea retirarse: "+PlayerActivo.toString(),"SEGURO",dialogButton);
+                int dialogResult = JOptionPane.showConfirmDialog (null, "desea retirarse: "+PlayerActivo.getUser(),"SEGURO",dialogButton);
                 if(dialogResult == JOptionPane.YES_OPTION){
                     dispose();
                     MenuPrincipal t = new MenuPrincipal();
@@ -107,7 +107,7 @@ public class Tablero extends JFrame implements MouseListener {
         panel2.add(mensajePanel);
         panel3.add(panel2);
         panel.add(panel3, BorderLayout.SOUTH);
-        jugadorLabelGlobal.setText(PlayerActivo.toString());
+        jugadorLabelGlobal.setText(PlayerActivo.getUser());
     }
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -157,13 +157,13 @@ public class Tablero extends JFrame implements MouseListener {
             PlayerActivo = PlayerBlanco;
             PlayerPasivo = PlayerNegro;
         }
+        
 
-        jugadorLabelGlobal.setText(PlayerActivo.toString());
+        jugadorLabelGlobal.setText(PlayerActivo.getUser());
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
 
     }
     @Override
@@ -192,4 +192,6 @@ public class Tablero extends JFrame implements MouseListener {
     public void finDelJuego() {
         this.juegoFinalizado = true;
     }
+    
+    
 }
